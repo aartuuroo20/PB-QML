@@ -6,7 +6,7 @@ import random
 import matplotlib.pyplot as plt
 import numpy as np
 
-from Test1 import Circuit
+from Circuit import Circuit
 from qat.interop.cirq import qlm_to_cirq
 
 def make_data(n1, n2):
@@ -40,18 +40,21 @@ def hinge_accuracy(y_true, y_pred):
 
     return tf.reduce_mean(result)
 
+
+qubit = cirq.GridQubit(0,0)
+
 #Instaciamos la clase circuito donde creamos un circuito cuantico y añadimos el encoding y el circuito variacional
 circuit = Circuit()
-circuit.testCircuit()
+circuit.varCircuit1()
 cirq_circuit = qlm_to_cirq(circuit.circuit())
 
 no_measurements_circuit = cirq.drop_terminal_measurements(cirq_circuit)
-qubit_map =  {cirq.LineQubit(1): cirq.GridQubit(0,0)}
+qubit_map =  {cirq.LineQubit(1): cirq.GridQubit(0,0), cirq.LineQubit(2): cirq.GridQubit(0,1)}
 modified_circuit = no_measurements_circuit.transform_qubits(qubit_map = qubit_map)
+print(modified_circuit)
 
 train, train_label, test, test_label = make_data(1000, 100)
 
-qubit = cirq.GridQubit(0,0)
 readout_operators = [cirq.X(qubit)]
 inputs = tf.keras.Input(shape=(), dtype=tf.dtypes.string)
 

@@ -6,7 +6,7 @@ from qat.core import Variable
 class Circuit:
     #Constructor that initialize the circuit with 2 qubits and create the qprogram
     def __init__(self):
-        nqubits = 1
+        nqubits = 2
         self.qprogram = Program()
         self.qubits = self.qprogram.qalloc(nqubits)
     
@@ -20,7 +20,11 @@ class Circuit:
             RX(ListVarTheta[0])(0)
             RY(ListVarTheta[1])(0)
             RZ(ListVarTheta[2])(0)
-        
+
+            RX(ListVarTheta[0])(1)
+            RY(ListVarTheta[1])(1)
+            RZ(ListVarTheta[2])(1)
+
         self.qprogram.apply(varcircuit, self.qubits)
 
     #Function that display the circuit

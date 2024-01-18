@@ -7,7 +7,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from Circuit import Circuit
+from DataSet import DataSet
 from qat.interop.cirq import qlm_to_cirq
+
 
 def make_data(n1, n2):
     qubit = cirq.GridQubit(0,0)
@@ -33,6 +35,7 @@ def make_data(n1, n2):
             test_label.append(-1)
     return tfq.convert_to_tensor(train), np.array(train_label), tfq.convert_to_tensor(test), np.array(test_label)
 
+
 def hinge_accuracy(y_true, y_pred):
     y_true = tf.squeeze(y_true) > 0.0
     y_pred = tf.squeeze(y_pred) > 0.0
@@ -41,11 +44,16 @@ def hinge_accuracy(y_true, y_pred):
     return tf.reduce_mean(result)
 
 
+
+dataset = DataSet()
+dataset.Draw()
+
 qubit = cirq.GridQubit(0,0)
 
 #Instaciamos la clase circuito donde creamos un circuito cuantico y añadimos el encoding y el circuito variacional
 circuit = Circuit()
 circuit.varCircuit1()
+circuit.ZZFeatureMap()
 cirq_circuit = qlm_to_cirq(circuit.circuit())
 
 no_measurements_circuit = cirq.drop_terminal_measurements(cirq_circuit)
@@ -63,7 +71,8 @@ layer1 = tfq.layers.PQC(modified_circuit, readout_operators, repetitions=32, dif
 model = tf.keras.models.Model(inputs=inputs, outputs=layer1)
 model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=0.001), loss=tf.keras.losses.hinge, metrics=[hinge_accuracy])
 
-history = model.fit(train, train_label, epochs=64, batch_size=32, validation_data=(test, test_label))
+#history = model.fit(train, train_label, epochs=64, batch_size=32, validation_data=(test, test_label))
+history = model.fit(dataset.X_aux, epochs=64, batch_size=32, validation_split=0.1)
 
 print(model.trainable_weights)
 

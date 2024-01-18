@@ -1,4 +1,6 @@
 import numpy as np
+import tensorflow_quantum as tfq
+import tensorflow as tf
 import matplotlib.pyplot as plt
 
 class DataSet:
@@ -21,7 +23,13 @@ class DataSet:
     #Function that return the dataset
     def GetItems(self):
         print(self.X_aux)
-    
+
+    def get_data(self):
+        return self.X_aux
+
+    def get_labels(self):
+        return self.y
+
     #Function that create a plot of the dataset
     def Draw(self):
         for x, y_target in zip(self.X_aux, self.y):
@@ -32,3 +40,4 @@ class DataSet:
         plt.plot([-1, 1], [1, -1], "--", color="black")
         plt.show()
         plt.close()
+    

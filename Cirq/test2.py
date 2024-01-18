@@ -6,10 +6,8 @@ import tensorflow_quantum as tfq
 import tensorflow as tf
 import cirq
 import sympy
-import random
 
 from DataSet import DataSet
-from sklearn.preprocessing import MinMaxScaler
 
 def hinge_accuracy(y_true, y_pred):
     y_true = tf.squeeze(y_true) > 0.0
@@ -17,7 +15,6 @@ def hinge_accuracy(y_true, y_pred):
     result = tf.cast(y_true == y_pred, tf.float32)
 
     return tf.reduce_mean(result)
-
 
 class CircuitLayerBuilder():
     def __init__(self, data_qubits, readout):
@@ -45,38 +42,37 @@ def create_quantum_model(num_layers=1):
 
     return circuit, cirq.Z(readout)
 
+def make_circuit(qubit):
+    x = sympy.symbols('X_rot')
+    y = sympy.symbols('Y_rot')
+    z = sympy.symbols('Z_rot')
+    c = cirq.Circuit()
+    c.append(cirq.rx(x).on(qubit))
+    c.append(cirq.ry(y).on(qubit))
+    c.append(cirq.rz(z).on(qubit))
+    return c
+
 
 ########################################################################################################################33
 
+dataset = DataSet()
 
-df = pd.read_csv("/home/arturo/Downloads/heart.csv")
-print(df.head())
-
-target_column = "output"
-numerical_column = df.columns.drop(target_column)
-output_rows = df[target_column]
-df.drop(target_column,axis=1,inplace=True)
-
-scaler = MinMaxScaler()
-scaler.fit(df)
-t_df = scaler.transform(df)
-
-X_train, X_test, y_train, y_test = train_test_split(t_df, output_rows, test_size=0.25, random_state=0)
+X_train, X_test, y_train, y_test = train_test_split(dataset.get_data(), dataset.get_labels(), test_size=0.2, random_state=42)
+print('X_train:',np.shape(X_train))
+print('y_train:',np.shape(y_train))
+print('X_test:',np.shape(X_test))
+print('y_test:',np.shape(y_test))
 
 ########################################################################################################################33
 
-circuit, readout = create_quantum_model()
-print(circuit)
-print(readout)
+circuit = make_circuit(cirq.GridQubit(0,0))
+readout = cirq.X(cirq.GridQubit(0,0))
 
 inputs = tf.keras.Input(shape=(), dtype=tf.dtypes.string)
 
-# Convierte los circuitos cuánticos a tensores de tipo string
-X_train_strings = tfq.convert_to_tensor([circuit for _ in range(len(X_train))])
-X_test_strings = tfq.convert_to_tensor([circuit for _ in range(len(X_test))])
-
 ########################################################################################################################33
 
+'''
 layer = tfq.layers.PQC(circuit, readout)(inputs)
 
 out = (layer + 1) / 2
@@ -92,8 +88,13 @@ history = model.fit(
       verbose=1,
       validation_data=(X_test_strings, y_test))
 
+'''
 
-print(model.trainable_weights)
+layer1 = tfq.layers.PQC(circuit, readout, repetitions=32, differentiator=tfq.differentiators.ParameterShift(), initializer=tf.keras.initializers.Zeros)(inputs)
+model = tf.keras.models.Model(inputs=inputs, outputs=layer1)
+model.compile(optimizer=tf.keras.optimizers.Adam(lr=0.001), loss=tf.keras.losses.hinge, metrics=[hinge_accuracy])
+
+history = model.fit(X_train, y_train, epochs=64, batch_size=32, validation_data=(X_test, y_test))
 
 ########################################################################################################################33
 

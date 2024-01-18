@@ -16,8 +16,11 @@ class Circuit:
         for i in range(2):
             ListVarData.append(Variable("varData" + str(i)))
         
-        alpha = ListVarData[0] * np.pi
-        beta = ListVarData[1] * np.pi
+        varaibleAux = Variable("varAux")
+        
+        alpha = ListVarData[0] * ListVarData[1]
+        a = [0,1]
+        b = [1,1]
 
         @qrout
         def zzmf():
@@ -27,7 +30,11 @@ class Circuit:
             PH(2* ListVarData[1])(0)
             CNOT(0, 1)
             #PH(2*(np.pi - ListVarData[0]) * (np.pi - ListVarData[1]))(1)
-            PH(2*(alpha))(1)
+            PH(np.pi**2)(1)
+            PH(- np.pi * ListVarData[1])(1)
+            PH(- np.pi * ListVarData[0])(1)
+            PH(varaibleAux * ListVarData[0])(1)
+
             CNOT(0, 1)
             H(0)
             H(1)

@@ -8,7 +8,7 @@ class DataSet:
 
     #Function that create a dataset of 20 samples with 2 inputs   
     def CreateDataSet(self):
-        num_samples = 20
+        num_samples = 50
         num_inputs = 2
 
         X_aux = 2 * np.random.rand(num_samples, num_inputs) - 1

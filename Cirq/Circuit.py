@@ -1,4 +1,5 @@
 import numpy as np
+import sympy
 
 from qat.lang import Program, H, PH, CNOT, qrout, RY, X, RZ
 from qat.core import Variable
@@ -92,7 +93,7 @@ class Circuit:
     def varCircuit3(self):
         ListVarTheta = []
         for i in range(2):
-            ListVarTheta.append(Variable("varTheta" + str(i))) 
+            ListVarTheta.append(Variable("Y_rot" , sympy.symbols))
 
         @qrout
         def varcircuit():

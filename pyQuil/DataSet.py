@@ -1,6 +1,4 @@
 import numpy as np
-import tensorflow_quantum as tfq
-import tensorflow as tf
 import matplotlib.pyplot as plt
 
 class DataSet:
@@ -19,6 +17,7 @@ class DataSet:
 
         self.X_aux = X_aux
         self.y = y
+        self.y01 = y01
 
     #Function that return the dataset
     def GetItems(self):

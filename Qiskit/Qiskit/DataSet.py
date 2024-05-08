@@ -12,7 +12,7 @@ class DataSet:
         if self.seed is not None:
             np.random.seed(self.seed)
             
-        num_samples = 20
+        num_samples = 50
         num_inputs = 2
 
         X_aux = 2 * np.random.rand(num_samples, num_inputs) - 1

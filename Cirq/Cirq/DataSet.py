@@ -5,12 +5,16 @@ import matplotlib.pyplot as plt
 
 class DataSet:
     #Constructor
-    def __init__(self):
+    def __init__(self, seed=None):
+        self.seed = seed
         self.CreateDataSet()
 
     #Function that create a dataset of 20 samples with 2 inputs   
     def CreateDataSet(self):
-        num_samples = 20
+        if self.seed is not None:
+            np.random.seed(self.seed)
+            
+        num_samples = 50
         num_inputs = 2
 
         X_aux = 2 * np.random.rand(num_samples, num_inputs) - 1
@@ -30,7 +34,7 @@ class DataSet:
     def get_labels(self):
         return self.y
 
-    #Function that create a plot of the dataset
+     #Function that create a plot of the dataset
     def Draw(self):
         for x, y_target in zip(self.X_aux, self.y):
             if y_target == 1:
@@ -38,5 +42,10 @@ class DataSet:
             else:
                 plt.plot(x[0], x[1], "go")
         plt.plot([-1, 1], [1, -1], "--", color="black")
+        plt.xlabel('Feature 1')
+        plt.ylabel('Feature 2')
+        plt.title('Clasificación Binaria Cuántica en Cirq')
+        plt.legend()
+        plt.grid(True)
         plt.show()
         plt.close()

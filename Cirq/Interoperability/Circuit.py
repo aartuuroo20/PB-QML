@@ -51,7 +51,7 @@ class Circuit:
     def varCircuit1(self):
         ListVarTheta = []
         for i in range(8):
-            ListVarTheta.append(Variable("varTheta" + str(i)))
+            ListVarTheta.append(Variable("Y_rot" , sympy.symbols))
 
         @qrout
         def varcircuit():
@@ -72,7 +72,7 @@ class Circuit:
     def varCircuit2(self):
         ListVarTheta = []
         for i in range(5):
-            ListVarTheta.append(Variable("varTheta" + str(i))) 
+            ListVarTheta.append(Variable("Y_rot" , sympy.symbols))
 
         @qrout
         def varcircuit():

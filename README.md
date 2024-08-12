@@ -12,37 +12,86 @@ During the development a problem arose, it was not possible to perform a correct
 
   ### myQLM
 
- 1. Install Python in version 3.9
- 2. Install myQLM
+ 1. Install Python in version 3.9.
+ 2. Install myQLM.
  ```bash
 pip install myqlm==1.9.9
 ```
 
  ### Qiskit
 
- 1. Install Python in version 3.9.13
- 2. Install Qiskit in version 0.43.1
- 3. Install Qiskit machine learning in version 0.7.2
- 4. To enable interoperability between myQLM and Qiskit it is necessary to install myqlm-interop[qiskit_binder].
+ 1. Install Python in version 3.9.13.
+ 2. Install Qiskit.
+  ```bash
+pip install qiskit==0.43.1
+```
+ 4. Install Qiskit machine learning.
+ ```bash
+pip install qiksit-machinelearning==0.7.2 
+```
+ 6. To enable interoperability between myQLM and Qiskit it is necessary to install myqlm-interop[qiskit_binder].
+ ```bash
+pip install myqlm-interop[qiskit_binder]
+```
 
 ### Cirq
 
- 1. Download and install miniconda
- 2. Create a virtual environment in python version 3.8
- 3. Activate the virtual environment and install cuda tool kit in version 11.8.0
- 4. Install library cuDNN of NVIDIA in version 8.6.0.163
- 5. Create a directory and a script file to set environment variables related to cuDNN
- 6. Add a line to the file: echo 'CUDNNN_PATH=$$(dirname $(python -c "import nvidia.cudnn;print(nvidia.cudnn.file)")' " $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
- 7. Set an environment variable: echo 'export LD_LIBRARY_PATH=$CONDA_PREFIX/lib/:$CUDNNN_PATH/lib:$LD_LIBRARY_PATH' " $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
- 8. Install tensorflow in version 2.7
- 9. Install tensorflow quantum
- 10. To enable interoperability between myQLM and Cirq it is necessary to install myqlm-interop[cirq_binder].
+ 1. Download miniconda.
+  ```bash
+curl https://repo.anaconda.com/miniconda/Miniconda3-py39-23.5.2-0-Linuxx86-64.sh -o Miniconda3-py39-23.5.2-0-Linux-x86-64.sh 
+```
+ 2. Install miniconda.
+  ```bash
+bash Miniconda3-py39-23.5.2-0-Linux-x86-64.sh
+```
+ 4. Create a virtual environment in python version 3.8.
+ 5. Activate the virtual environment and install cuda tool kit.
+ ```bash
+conda install -c conda-forge cudatoolkit=11.8.0
+```
+ 7. Install library cuDNN of NVIDIA.
+ ```bash
+pip install nvidia-cudnn-cu11==8.6.0.163
+```
+ 9. Create a directory and a script file to set environment variables related to cuDNN.
+ ```bash
+mkdir -p $CONDA-PREFIX/etc/conda/activate.d 
+```
+ 11. Add a line to the file.
+ ```bash
+echo ’CUDNN_PATH=$(dirname $(python -c "import nvidia.cudnn;print(nvidia.cudnn.file)"))’ » $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+```
+ 13. Set an environment variable.
+ ```bash
+echo ’export LD_LIBRARY_PATH=$CONDA_PREFIX/lib/:$CUDNN_PATH/lib:$LD_LIBRARY_PATH’ » $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+```
+ 15. Install tensorflow.
+ ```bash
+pip install tensorflow==2.7.*
+```
+ 17. Install tensorflow quantum.
+ ```bash
+pip3 install -U tensorflow-quantum
+```
+ 19. To enable interoperability between myQLM and Cirq it is necessary to install myqlm-interop[cirq_binder].
+```bash
+pip install myqlm-interop[cirq_binder]
+```
 
 ### pyQuil & Pennylane
 
- 1. Install Python in version 3.9
+ 1. Install Python in version 3.9.
  2. Install pyQuil
- 3. Once pyQuil is installed, it is necessary to install a series of dependencies: https://docs.rigetti.com/qcs/getting-started/set-up-your-environment/installing-locally
- 4. Install Pennylane
- 5. To enable interoperability between pennylane and pyQuil it is necessary to install the following library: pennylane-rigetti
+  ```bash
+pip install pyquil
+```
+ 4. Once pyQuil is installed, it is necessary to install a series of dependencies: https://docs.rigetti.com/qcs/getting-started/set-up-your-environment/installing-locally
+ 5. Install Pennylane
+  ```bash
+pip install pennylane
+```
+ 7. To enable interoperability between pennylane and pyQuil it is necessary to install the following library: pennylane-rigetti
+```bash
+python -m pip install pennylane-rigetti
+```
 

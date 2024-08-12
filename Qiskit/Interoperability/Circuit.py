@@ -35,7 +35,7 @@ class Circuit:
         
         self.qprogram.apply(zzmf, self.qubits)
 
-    #Function that create the variational circuit and apply it to the qprogram
+    #Function that create the variational circuit 1 and apply it to the qprogram
     def varCircuit1(self):
         ListVarTheta = []
         for i in range(8):
@@ -57,6 +57,7 @@ class Circuit:
         
         self.qprogram.apply(varcircuit, self.qubits)
 
+    #Function that create the variational circuit 2 and apply it to the qprogram
     def varCircuit2(self):
         ListVarTheta = []
         for i in range(5):
@@ -78,6 +79,7 @@ class Circuit:
         
         self.qprogram.apply(varcircuit, self.qubits)
     
+    #Function that create the variational circuit 3 and apply it to the qprogram
     def varCircuit3(self):
         ListVarTheta = []
         for i in range(2):
@@ -94,7 +96,6 @@ class Circuit:
         
         self.qprogram.apply(varcircuit, self.qubits)
         
-
     #Function that display the circuit
     def display(self):
         circuit = self.qprogram.to_circ()

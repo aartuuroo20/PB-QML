@@ -1,6 +1,4 @@
 import numpy as np
-import tensorflow_quantum as tfq
-import tensorflow as tf
 import matplotlib.pyplot as plt
 
 class DataSet:
@@ -9,7 +7,7 @@ class DataSet:
         self.seed = seed
         self.CreateDataSet()
 
-    #Function that create a dataset of 20 samples with 2 inputs   
+    #Function that create a dataset of num_samples with 2 inputs   
     def CreateDataSet(self):
         if self.seed is not None:
             np.random.seed(self.seed)
@@ -28,13 +26,15 @@ class DataSet:
     def GetItems(self):
         print(self.X_aux)
 
+    #Function that return the X value of dataset
     def get_data(self):
         return self.X_aux
 
+    #Function that return the Y value of dataset
     def get_labels(self):
         return self.y
 
-     #Function that create a plot of the dataset
+    #Function that create a plot of the dataset
     def Draw(self):
         for x, y_target in zip(self.X_aux, self.y):
             if y_target == 1:

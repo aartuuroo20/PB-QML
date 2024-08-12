@@ -18,10 +18,6 @@ class Circuit:
             ListVarData.append(Variable("varData" + str(i)))
         
         varaibleAux = Variable("varAux")
-        
-        alpha = ListVarData[0] * ListVarData[1]
-        a = [0,1]
-        b = [1,1]
 
         @qrout
         def zzmf():
@@ -47,7 +43,7 @@ class Circuit:
         
         self.qprogram.apply(zzmf, self.qubits)
 
-    #Function that create the variational circuit and apply it to the qprogram
+    #Function that create the variational circuit 1 and apply it to the qprogram
     def varCircuit1(self):
         ListVarTheta = []
         for i in range(8):
@@ -69,6 +65,7 @@ class Circuit:
         
         self.qprogram.apply(varcircuit, self.qubits)
 
+    #Function that create the variational circuit 2 and apply it to the qprogram
     def varCircuit2(self):
         ListVarTheta = []
         for i in range(5):
@@ -90,6 +87,7 @@ class Circuit:
         
         self.qprogram.apply(varcircuit, self.qubits)
     
+    #Function that create the variational circuit 3 and apply it to the qprogram
     def varCircuit3(self):
         ListVarTheta = []
         for i in range(2):

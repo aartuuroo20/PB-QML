@@ -10,6 +10,8 @@ During the development a problem arose, it was not possible to perform a correct
 
  ## Installation
 
+ For the installation of Qiskit, myQLM and pyQuil it is necessary to have Windows 10. For the installation of Cirq it is necessary to have Linux Ubuntu 22.04.
+
   ### myQLM
 
  1. Install Python in version 3.9.

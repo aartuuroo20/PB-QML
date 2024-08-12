@@ -1,4 +1,4 @@
-#Final Degree Project
+# Final Degree Project
 
 This repository contains the project developed for the final degree work in computer engineering. 
 

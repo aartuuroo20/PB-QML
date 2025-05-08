@@ -1,4 +1,4 @@
-# Final Degree Project
+# Benchmarking Platform For Quantum MachineLearning
 
 This repository contains the project developed for the final degree work in computer engineering. 
 

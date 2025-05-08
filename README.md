@@ -1,4 +1,4 @@
-# Benchmarking Platform For Quantum MachineLearning
+# Benchmarking Platform For Quantum Machine Learning
 
 This repository contains the project developed for the final degree work in computer engineering. 
 
